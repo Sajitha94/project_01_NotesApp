@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1>welcome sajitha vinu</h1>
+      <h1 className="text-3xl font-bold underline">welcome sajitha </h1>
     </>
   );
 }
