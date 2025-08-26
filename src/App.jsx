@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1>welcome sajitha</h1>
+      <h1>welcome sajitha vinu</h1>
     </>
   );
 }
