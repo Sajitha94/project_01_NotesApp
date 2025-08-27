@@ -1,0 +1,48 @@
+import React from "react";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+
+function TagsPage() {
+  const [activeChip, setActiveChip] = useState("All");
+  const chipArr = ["All", "works"];
+
+  const handleClick = () => {
+    console.info("You clicked the Chip.");
+  };
+  return (
+    <Box className="flex flex-col justify-between items-start mx-4">
+      <Typography
+        variant="h6"
+        noWrap
+        component="div"
+        sx={{
+          color: "#5e35b1",
+          fontWeight: "bold",
+          fontSize: { xs: "16px", sm: "25px" },
+        }}
+      >
+        Tags
+      </Typography>
+      <Stack direction="row" spacing={1} sx={{ overflowX: "auto", py: 2 }}>
+        {chipArr.map((chip) => (
+          <Chip
+            label={chip}
+            key={chip}
+            variant="outlined"
+            onClick={handleClick}
+            sx={{
+              backgroundColor: activeChip === chip ? "#7e57c2" : "#ede7f6",
+              color: activeChip === chip ? "white" : "#5e35b1",
+              padding: "5px 5px",
+            }}
+          />
+        ))}
+      </Stack>
+    </Box>
+  );
+}
+
+export default TagsPage;
