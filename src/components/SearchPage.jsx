@@ -50,8 +50,8 @@ function SearchPage() {
   const [activeTag, setActiveTag] = useState("Notes");
   const buttons = ["Notes", "Archived", "Trash"];
   return (
-    <Box className="flex justify-between items-center md:mx-4 md:flex-row flex-col">
-      <Box className="flex justify-end items-center p-4 gap-3 order-2 md:order-1">
+    <Box className="flex justify-between items-center md:mx-4  md:flex-row flex-col">
+      <Box className="flex justify-end items-center py-4 gap-4 order-2 md:order-1">
         {buttons.map((btn) => (
           <Button
             key={btn}
@@ -68,7 +68,7 @@ function SearchPage() {
         ))}
       </Box>
 
-      <Box className="flex justify-between items-center p-4 order-1 md:order-2">
+      <Box className="flex justify-between items-center py-4 gap-2 order-1 md:order-2">
         <Search sx={{ border: "2px solid #b39ddb", borderRadius: "10px" }}>
           <SearchIconWrapper className="justify-between">
             <SearchIcon className="text-[#7e57c2]" />
