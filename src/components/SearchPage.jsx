@@ -68,7 +68,7 @@ function SearchPage() {
         ))}
       </Box>
 
-      <Box className="flex justify-between items-center py-4 gap-2 order-1 md:order-2">
+      <Box className="flex justify-between items-center py-4  order-1 md:order-2">
         <Search sx={{ border: "2px solid #b39ddb", borderRadius: "10px" }}>
           <SearchIconWrapper className="justify-between">
             <SearchIcon className="text-[#7e57c2]" />
