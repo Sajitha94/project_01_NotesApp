@@ -34,9 +34,10 @@ function TagsPage() {
             variant="outlined"
             onClick={handleClick}
             sx={{
-              backgroundColor: activeChip === chip ? "#7e57c2" : "#ede7f6",
+              backgroundColor: activeChip === chip ? "#946bdc" : "#ede7f6",
               color: activeChip === chip ? "white" : "#5e35b1",
               padding: "5px 5px",
+              cursor: "pointer",
             }}
           />
         ))}
