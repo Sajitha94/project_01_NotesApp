@@ -7,20 +7,21 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { useNotes } from "./LocalStorageData";
 
 function CardPage() {
-  const cardArr = JSON.parse(localStorage.getItem("notes")) || [];
-  console.log(cardArr);
+  const { notes, setNotes } = useNotes();
+  console.log(notes);
 
   const buttonsActions = ["Edit", "Archive", "Trash"];
   const chipArr = ["#personal", "#work", "#office"];
 
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
-      {cardArr.map((card) => (
+      {notes.map((card, idx) => (
         <Card
           sx={{ maxWidth: { xs: 300, lg: 275 }, borderRadius: 2, boxShadow: 3 }}
-          key={card}
+          key={idx}
         >
           <CardContent className="flex justify-between items-center flex-col">
             <Box className="flex justify-between   gap-12 mb-1">
@@ -33,7 +34,7 @@ function CardPage() {
                   marginBottom: 0,
                 }}
               >
-                Welcome to Notes
+                {card.title}
               </Typography>
               <Box className="flex justify-end items-center gap-2 ">
                 <Box> 📍</Box>
@@ -49,18 +50,17 @@ function CardPage() {
                   wordWrap: "break-word",
                 }}
               >
-                This is an example note. Use the + button to create notes, add
-                tags (comma) and save them. Click on the tags to filter notes.
+                {card.description}
               </Typography>
               <Box className="flex  flex-col justify-start items-center gap-1 text-sm text-gray-500">
-                <Box>28/8/2025,</Box>
-                <Box>1:16:30am</Box>
+                <Box>{card.date},</Box>
+                <Box>{card.time}</Box>
               </Box>
             </Box>
 
             <Stack direction="row" spacing={1}>
-              {chipArr.map((chip, idx) => (
-                <Chip label={chip} key={idx} />
+              {card.tags.map((chip, idx) => (
+                <Chip label={`#${chip}`} key={idx} />
               ))}
             </Stack>
           </CardContent>

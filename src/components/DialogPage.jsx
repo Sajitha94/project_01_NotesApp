@@ -11,6 +11,7 @@ import { useState } from "react";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
+import { useNotes } from "./LocalStorageData";
 
 const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
   width: "100%",
@@ -31,21 +32,25 @@ const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
 }));
 
 function DialogPage({ open, handleClose }) {
+  const { notes, setNotes } = useNotes();
+  console.log(notes, "nkj");
+
   const handleSubmit = (event) => {
-    event.preventDefault(); // prevent default form submission
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const title = formData.get("title");
     const description = formData.get("description");
-    const tags = formData.get("tags");
+    const tagInput = formData.get("tags");
+    const tags = tagInput.split(",").map((item) => item.trim());
     const dateTimeString = new Date();
     const [date, time] = dateTimeString.toLocaleString().split(",");
 
-    const existingNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    const existingNotes = notes;
+    console.log(existingNotes, "get");
+
     const id = existingNotes.length + 1 || 1;
     const newNote = { id, title, description, tags, date, time };
-    existingNotes.push(newNote);
-
-    localStorage.setItem("notes", JSON.stringify(existingNotes));
+    setNotes([...notes, newNote]);
 
     console.log(newNote);
     handleClose();
