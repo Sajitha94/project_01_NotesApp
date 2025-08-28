@@ -20,7 +20,7 @@ function CardPage() {
           key={card}
         >
           <CardContent className="flex justify-between items-center flex-col">
-            <Box className="flex justify-between items-center  gap-5 mb-1">
+            <Box className="flex justify-between   gap-12 mb-1">
               <Typography
                 gutterBottom
                 sx={{
