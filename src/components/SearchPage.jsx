@@ -9,6 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useState } from "react";
+import DialogPage from "./DialogPage";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,7 +49,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function SearchPage() {
   const [activeTag, setActiveTag] = useState("Notes");
+  const [open, setOpen] = useState(false);
   const buttons = ["Notes", "Archived", "Trash"];
+
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Box className="flex justify-between items-center md:mx-4  md:flex-row flex-col">
       <Box className="flex justify-end items-center py-4 gap-4 order-2 md:order-1">
@@ -82,10 +88,13 @@ function SearchPage() {
         <Button
           variant="contained"
           sx={{ backgroundColor: "#7e57c2", padding: "5px 5px" }}
+          onClick={handleClickOpen}
         >
           ADD NEW
         </Button>
       </Box>
+
+      <DialogPage open={open} handleClose={handleClose} />
     </Box>
   );
 }
