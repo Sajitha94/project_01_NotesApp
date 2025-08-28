@@ -15,7 +15,10 @@ function CardPage() {
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
       {cardArr.map((card) => (
-        <Card sx={{ maxWidth: 275, borderRadius: 2, boxShadow: 3 }} key={card}>
+        <Card
+          sx={{ maxWidth: { xs: 300, lg: 275 }, borderRadius: 2, boxShadow: 3 }}
+          key={card}
+        >
           <CardContent className="flex justify-between items-center flex-col">
             <Box className="flex justify-between items-center  gap-5 mb-1">
               <Typography
