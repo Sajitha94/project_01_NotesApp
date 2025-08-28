@@ -31,23 +31,30 @@ const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
 }));
 
 function DialogPage({ open, handleClose }) {
-  //   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //     event.preventDefault();
-  //     const formData = new FormData(event.currentTarget);
-  //     const formJson = Object.fromEntries((formData as any).entries());
-  //     const email = formJson.email;
-  //     console.log(email);
-  //     handleClose();
-  //   };
+  const handleSubmit = (event) => {
+    event.preventDefault(); // prevent default form submission
+    const formData = new FormData(event.currentTarget);
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const tags = formData.get("tags");
+    const dateTimeString = new Date();
+    const [date, time] = dateTimeString.toLocaleString().split(",");
+    const newNote = { title, description, tags, date, time };
 
+    const existingNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    existingNotes.push(newNote);
+    localStorage.setItem("notes", JSON.stringify(existingNotes));
+
+    handleClose();
+  };
   return (
     <Box>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New</DialogTitle>
         <DialogContent dividers>
-          <form id="add-form">
+          <form id="add-form" onSubmit={handleSubmit}>
             <TextField
-              id="title"
+              name="title"
               placeholder="Title"
               variant="outlined"
               fullWidth
@@ -67,6 +74,7 @@ function DialogPage({ open, handleClose }) {
             />
 
             <StyledTextarea
+              name="description"
               maxRows={10}
               minRows={4}
               aria-label="description"
@@ -74,7 +82,7 @@ function DialogPage({ open, handleClose }) {
             />
 
             <TextField
-              id="outlined-basic"
+              name="tags"
               placeholder="Tags - comma separated (e.g. personal, work, office)"
               variant="outlined"
               fullWidth
@@ -92,33 +100,33 @@ function DialogPage({ open, handleClose }) {
                 },
               }}
             />
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                sx={{
+                  color: "red",
+                  borderColor: "red",
+                  border: "1px solid #d1c4e9",
+                  textTransform: "none",
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                form="add-form"
+                sx={{
+                  color: "red",
+                  color: "#9575cd",
+                  border: "1px solid #d1c4e9",
+                  textTransform: "none",
+                }}
+              >
+                Save
+              </Button>
+            </DialogActions>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleClose}
-            sx={{
-              color: "red",
-              borderColor: "red",
-              border: "1px solid #d1c4e9",
-              textTransform: "none",
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            form="subscription-form"
-            sx={{
-              color: "red",
-              color: "#9575cd",
-              border: "1px solid #d1c4e9",
-              textTransform: "none",
-            }}
-          >
-            Save
-          </Button>
-        </DialogActions>
       </Dialog>
     </Box>
   );
