@@ -39,12 +39,15 @@ function DialogPage({ open, handleClose }) {
     const tags = formData.get("tags");
     const dateTimeString = new Date();
     const [date, time] = dateTimeString.toLocaleString().split(",");
-    const newNote = { title, description, tags, date, time };
 
     const existingNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    const id = existingNotes.length + 1 || 1;
+    const newNote = { id, title, description, tags, date, time };
     existingNotes.push(newNote);
+
     localStorage.setItem("notes", JSON.stringify(existingNotes));
 
+    console.log(newNote);
     handleClose();
   };
   return (

@@ -9,9 +9,12 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
 function CardPage() {
-  const cardArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const cardArr = JSON.parse(localStorage.getItem("notes")) || [];
+  console.log(cardArr);
+
   const buttonsActions = ["Edit", "Archive", "Trash"];
   const chipArr = ["#personal", "#work", "#office"];
+
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
       {cardArr.map((card) => (
