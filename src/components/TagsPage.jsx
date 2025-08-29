@@ -39,7 +39,7 @@ function TagsPage() {
 
           return (
             <Chip
-              label={`#${chip}`}
+              label={chip === "All" ? `${chip}` : `#${chip}`}
               key={chip}
               variant="outlined"
               onClick={() => handleClick(chip)}

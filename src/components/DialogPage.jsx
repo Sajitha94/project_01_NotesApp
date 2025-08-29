@@ -62,7 +62,7 @@ function DialogPage() {
       );
       setNotes(UpdateNote);
     } else {
-      const pinned = true;
+      const pinned = false;
       const archived = false;
       const trashed = false;
       const id = Math.floor(Math.random() * 3) + Date.now();

@@ -44,7 +44,7 @@ function CardPage() {
       (item) => item.archived === false && item.trashed === false
     );
   }
-  // useEffect(()=>{})
+
   if (searchTerm.trim() !== "") {
     filteredNotes = filteredNotes.filter(
       (item) =>
@@ -55,6 +55,12 @@ function CardPage() {
         )
     );
   }
+
+  filteredNotes.sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    return 0;
+  });
 
   const ButtonOnclick = (btn, id) => {
     if (btn === "Edit") {
@@ -84,6 +90,12 @@ function CardPage() {
       setNotes(deleteData);
     }
   };
+  const pinCard = (id) => {
+    const pinData = notes.map((item) =>
+      item.id === id ? { ...item, pinned: !item.pinned } : item
+    );
+    setNotes(pinData);
+  };
   console.log(notes, "notes");
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
@@ -106,8 +118,14 @@ function CardPage() {
                 {card.title}
               </Typography>
               <Box className="flex justify-end items-center gap-2 ">
-                <Box> 📍</Box>
-                {/* "📌" :  */}
+                <Box
+                  onClick={() => pinCard(card.id)}
+                  sx={{ cursor: "pointer" }}
+                >
+                  {" "}
+                  {card.pinned === true ? "📌" : "📍"}
+                </Box>
+                {/* "" :  */}
                 <Box>➤</Box>
               </Box>
             </Box>

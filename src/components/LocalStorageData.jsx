@@ -27,7 +27,7 @@ export function LocalStorageProvider({ children }) {
       description:
         "This is an example note. Use the + button to create notes, add tags (comma separated), and try pinning/archiving/trashing.",
       tags: ["welcome", "example"],
-      pinned: true,
+      pinned: false,
       archived: false,
       trashed: false,
       date: date,
