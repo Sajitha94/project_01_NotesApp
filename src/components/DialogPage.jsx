@@ -43,18 +43,33 @@ function DialogPage() {
     const description = formData.get("description");
     const tagInput = formData.get("tags");
     const tags = tagInput.split(",").map((item) => item.trim());
+    const dateTimeString = new Date();
+    const [date, time] = dateTimeString.toLocaleString().split(",");
+
     if (noteToEdit) {
       const UpdateNote = notes.map((item) =>
-        item.id === editNoteId ? { ...item, title, description, tags } : item
+        item.id === editNoteId
+          ? { ...item, title, description, tags, date, time }
+          : item
       );
       setNotes(UpdateNote);
     } else {
-      const dateTimeString = new Date();
-      const [date, time] = dateTimeString.toLocaleString().split(",");
+      const pinned = true;
+      const archived = false;
+      const trashed = false;
       const existingNotes = notes;
-
       const id = existingNotes.length + 1 || 1;
-      const newNote = { id, title, description, tags, date, time };
+      const newNote = {
+        id,
+        title,
+        description,
+        tags,
+        date,
+        time,
+        pinned,
+        archived,
+        trashed,
+      };
       setNotes([...notes, newNote]);
     }
 

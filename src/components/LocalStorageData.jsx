@@ -16,10 +16,31 @@ export function LocalStorageProvider({ children }) {
     setEditNoteId(null);
     setOpen(false);
   };
+  const dateTimeString = new Date();
+  const [date, time] = dateTimeString.toLocaleString().split(",");
+  const defaultNotes = [
+    {
+      id: 1,
+      title: "Welcome to Notes",
+      description:
+        "This is an example note. Use the + button to create notes, add tags (comma separated), and try pinning/archiving/trashing.",
+      tags: ["welcome", "example"],
+      pinned: true,
+      archived: false,
+      trashed: false,
+      date: date,
+      time: time,
+    },
+  ];
 
   useEffect(() => {
     const storeNotes = JSON.parse(localStorage.getItem("notes")) || [];
-    setNotes(storeNotes);
+    if (storeNotes.length === 0) {
+      setNotes(defaultNotes);
+      localStorage.setItem("notes", JSON.stringify(defaultNotes));
+    } else {
+      setNotes(storeNotes);
+    }
   }, []);
 
   useEffect(() => {

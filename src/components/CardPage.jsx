@@ -11,14 +11,26 @@ import { useNotes } from "./LocalStorageData";
 
 function CardPage() {
   const { notes, setNotes, handleClickOpen, handleClose, open } = useNotes();
-
+  // pinned,
+  //         archived,
+  //         trashed,
   const buttonsActions = ["Edit", "Archive", "Trash"];
   const ButtonOnclick = (btn, id) => {
     if (btn === "Edit") {
       handleClickOpen(id);
+    } else if (btn === "Archive") {
+      const archiveData = notes.map((item) =>
+        item.id === id ? { ...item, archived: true } : item
+      );
+      setNotes(archiveData);
+    } else if (btn === "Trash") {
+      const trashData = notes.map((items) =>
+        items.id === id ? { ...items, trashed: true } : items
+      );
+      setNotes(trashData);
     }
   };
-
+  console.log(notes, "notes");
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
       {notes.map((card, idx) => (
