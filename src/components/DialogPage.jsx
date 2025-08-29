@@ -57,8 +57,7 @@ function DialogPage() {
       const pinned = true;
       const archived = false;
       const trashed = false;
-      const existingNotes = notes;
-      const id = existingNotes.length + 1 || 1;
+      const id = Math.floor(Math.random() * 3) + Date.now();
       const newNote = {
         id,
         title,

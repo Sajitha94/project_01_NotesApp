@@ -18,7 +18,7 @@ function CardPage() {
     if (card.archived) {
       buttons.push("UnArchive");
     } else if (card.trashed) {
-      buttons.push("Restore");
+      buttons.push("Restore", "Delete");
     } else {
       buttons.push("Edit", "Archive", "Trash");
     }
@@ -63,6 +63,9 @@ function CardPage() {
         item.id === id ? { ...item, trashed: false } : item
       );
       setNotes(restoreData);
+    } else if (btn === "Delete") {
+      const deleteData = notes.filter((item) => item.id !== id);
+      setNotes(deleteData);
     }
   };
   console.log(notes, "notes");
@@ -121,7 +124,8 @@ function CardPage() {
                 key={idx}
                 sx={{
                   textTransform: "none",
-                  color: btn === "Trash" ? "red" : "#9575cd",
+                  color:
+                    btn === "Trash" || btn === "Delete" ? "red" : "#9575cd",
                   borderColor: "#d1c4e9",
                 }}
                 onClick={() => ButtonOnclick(btn, card.id)}
