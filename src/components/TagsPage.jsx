@@ -7,12 +7,15 @@ import Box from "@mui/material/Box";
 import { useNotes } from "./LocalStorageData";
 
 function TagsPage() {
-  const { tagsData, setTagsData } = useNotes();
-  console.log(tagsData, "tagsData111");
+  const { tagsData, setSearchTerm } = useNotes();
   const chipArr = ["All", ...tagsData];
 
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
+  const handleClick = (chip) => {
+    if (chip === "All") {
+      setSearchTerm("");
+    } else {
+      setSearchTerm(chip);
+    }
   };
   return (
     <Box className="flex flex-col justify-between items-start mx-4">
@@ -34,7 +37,7 @@ function TagsPage() {
             label={`#${chip}`}
             key={chip}
             variant="outlined"
-            onClick={handleClick}
+            onClick={() => handleClick(chip)}
             sx={{
               backgroundColor: chip === "All" ? "#946bdc" : "#ede7f6",
               color: chip === "All" ? "white" : "#5e35b1",

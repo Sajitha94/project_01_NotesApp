@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -44,6 +44,7 @@ function CardPage() {
       (item) => item.archived === false && item.trashed === false
     );
   }
+  // useEffect(()=>{})
   if (searchTerm.trim() !== "") {
     filteredNotes = filteredNotes.filter(
       (item) =>
