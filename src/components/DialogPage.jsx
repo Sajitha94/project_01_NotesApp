@@ -31,9 +31,10 @@ const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
   },
 }));
 
-function DialogPage({ open, handleClose }) {
-  const { notes, setNotes } = useNotes();
-  console.log(notes, "nkj");
+function DialogPage() {
+  const { notes, setNotes, open, handleClose, editNoteId } = useNotes();
+
+  const noteToEdit = notes.find((notes) => notes.id === editNoteId);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,23 +43,28 @@ function DialogPage({ open, handleClose }) {
     const description = formData.get("description");
     const tagInput = formData.get("tags");
     const tags = tagInput.split(",").map((item) => item.trim());
-    const dateTimeString = new Date();
-    const [date, time] = dateTimeString.toLocaleString().split(",");
+    if (noteToEdit) {
+      const UpdateNote = notes.map((item) =>
+        item.id === editNoteId ? { ...item, title, description, tags } : item
+      );
+      setNotes(UpdateNote);
+    } else {
+      const dateTimeString = new Date();
+      const [date, time] = dateTimeString.toLocaleString().split(",");
+      const existingNotes = notes;
 
-    const existingNotes = notes;
-    console.log(existingNotes, "get");
+      const id = existingNotes.length + 1 || 1;
+      const newNote = { id, title, description, tags, date, time };
+      setNotes([...notes, newNote]);
+    }
 
-    const id = existingNotes.length + 1 || 1;
-    const newNote = { id, title, description, tags, date, time };
-    setNotes([...notes, newNote]);
-
-    console.log(newNote);
     handleClose();
   };
+
   return (
     <Box>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New</DialogTitle>
+        <DialogTitle>{noteToEdit ? "Edit Note" : "Add New"}</DialogTitle>
         <DialogContent dividers>
           <form id="add-form" onSubmit={handleSubmit}>
             <TextField
@@ -66,6 +72,7 @@ function DialogPage({ open, handleClose }) {
               placeholder="Title"
               variant="outlined"
               fullWidth
+              defaultValue={noteToEdit ? noteToEdit.title : ""}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {
@@ -87,6 +94,7 @@ function DialogPage({ open, handleClose }) {
               minRows={4}
               aria-label="description"
               placeholder="Write your note here..."
+              defaultValue={noteToEdit ? noteToEdit.description : ""}
             />
 
             <TextField
@@ -94,6 +102,7 @@ function DialogPage({ open, handleClose }) {
               placeholder="Tags - comma separated (e.g. personal, work, office)"
               variant="outlined"
               fullWidth
+              defaultValue={noteToEdit ? noteToEdit.tags.join(", ") : ""}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {

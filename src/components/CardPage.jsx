@@ -10,11 +10,14 @@ import Stack from "@mui/material/Stack";
 import { useNotes } from "./LocalStorageData";
 
 function CardPage() {
-  const { notes, setNotes } = useNotes();
-  console.log(notes);
+  const { notes, setNotes, handleClickOpen, handleClose, open } = useNotes();
 
   const buttonsActions = ["Edit", "Archive", "Trash"];
-  const chipArr = ["#personal", "#work", "#office"];
+  const ButtonOnclick = (btn, id) => {
+    if (btn === "Edit") {
+      handleClickOpen(id);
+    }
+  };
 
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
@@ -74,6 +77,7 @@ function CardPage() {
                   color: btn === "Trash" ? "red" : "#9575cd",
                   borderColor: "#d1c4e9",
                 }}
+                onClick={() => ButtonOnclick(btn, card.id)}
               >
                 {btn}
               </Button>

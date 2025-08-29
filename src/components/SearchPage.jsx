@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import DialogPage from "./DialogPage";
+import { useNotes } from "./LocalStorageData";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,12 +49,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchPage() {
-  const [activeTag, setActiveTag] = useState("Notes");
-  const [open, setOpen] = useState(false);
+  const [activeTag, setActiveTag,] = useState("Notes");
+  const { handleClickOpen } = useNotes();
   const buttons = ["Notes", "Archived", "Trash"];
-
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <Box className="flex justify-between items-center md:mx-4  md:flex-row flex-col">
@@ -94,7 +92,7 @@ function SearchPage() {
         </Button>
       </Box>
 
-      <DialogPage open={open} handleClose={handleClose} />
+      <DialogPage />
     </Box>
   );
 }
