@@ -5,6 +5,8 @@ const LocalStorageContext = createContext();
 
 export function LocalStorageProvider({ children }) {
   const [notes, setNotes] = useState([]);
+  const [tagsData, setTagsData] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [editNoteId, setEditNoteId] = useState(null);
   const [activeTag, setActiveTag] = useState("Notes");
@@ -35,16 +37,23 @@ export function LocalStorageProvider({ children }) {
 
   useEffect(() => {
     const storeNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    const storedTags = JSON.parse(localStorage.getItem("Tags")) || [];
+
     if (storeNotes.length === 0) {
+      setTagsData(defaultNotes[0].tags);
       setNotes(defaultNotes);
+
       localStorage.setItem("notes", JSON.stringify(defaultNotes));
+      localStorage.setItem("Tags", JSON.stringify(tagsData));
     } else {
       setNotes(storeNotes);
+      setTagsData(storedTags);
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem("Tags", JSON.stringify(tagsData));
   }, [notes]);
 
   return (
@@ -59,6 +68,8 @@ export function LocalStorageProvider({ children }) {
         editNoteId,
         activeTag,
         setActiveTag,
+        tagsData,
+        setTagsData,
       }}
     >
       {children}

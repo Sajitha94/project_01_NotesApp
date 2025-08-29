@@ -32,7 +32,15 @@ const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
 }));
 
 function DialogPage() {
-  const { notes, setNotes, open, handleClose, editNoteId } = useNotes();
+  const {
+    notes,
+    setNotes,
+    open,
+    handleClose,
+    editNoteId,
+    tagsData,
+    setTagsData,
+  } = useNotes();
 
   const noteToEdit = notes.find((notes) => notes.id === editNoteId);
 
@@ -72,6 +80,9 @@ function DialogPage() {
       setNotes([...notes, newNote]);
     }
 
+    const allTags = [...new Set([...tagsData, ...tags])];
+    setTagsData(allTags);
+    console.log(allTags, "allTags");
     handleClose();
   };
 

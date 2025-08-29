@@ -4,10 +4,12 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Box from "@mui/material/Box";
+import { useNotes } from "./LocalStorageData";
 
 function TagsPage() {
-  const [activeChip, setActiveChip] = useState("All");
-  const chipArr = ["All", "works"];
+  const { tagsData, setTagsData } = useNotes();
+  console.log(tagsData, "tagsData111");
+  const chipArr = ["All", ...tagsData];
 
   const handleClick = () => {
     console.info("You clicked the Chip.");
@@ -29,13 +31,13 @@ function TagsPage() {
       <Stack direction="row" spacing={1} sx={{ overflowX: "auto", py: 2 }}>
         {chipArr.map((chip) => (
           <Chip
-            label={chip}
+            label={`#${chip}`}
             key={chip}
             variant="outlined"
             onClick={handleClick}
             sx={{
-              backgroundColor: activeChip === chip ? "#946bdc" : "#ede7f6",
-              color: activeChip === chip ? "white" : "#5e35b1",
+              backgroundColor: chip === "All" ? "#946bdc" : "#ede7f6",
+              color: chip === "All" ? "white" : "#5e35b1",
               padding: "5px 5px",
               cursor: "pointer",
             }}
