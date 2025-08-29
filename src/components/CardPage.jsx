@@ -13,8 +13,17 @@ function CardPage() {
   const { notes, setNotes, handleClickOpen, handleClose, open, activeTag } =
     useNotes();
 
-  const buttonsActions = ["Edit", "Archive", "Trash"];
-
+  const buttonsActions = (card) => {
+    let buttons = [];
+    if (card.archived) {
+      buttons.push("UnArchive");
+    } else if (card.trashed) {
+      buttons.push("Restore");
+    } else {
+      buttons.push("Edit", "Archive", "Trash");
+    }
+    return buttons;
+  };
   // pinned,
   //         archived,
   //         trashed,
@@ -44,6 +53,16 @@ function CardPage() {
         items.id === id ? { ...items, trashed: true, archived: false } : items
       );
       setNotes(trashData);
+    } else if (btn === "UnArchive") {
+      const unArchiveData = notes.map((item) =>
+        item.id === id ? { ...item, archived: false } : item
+      );
+      setNotes(unArchiveData);
+    } else if (btn === "Restore") {
+      const restoreData = notes.map((item) =>
+        item.id === id ? { ...item, trashed: false } : item
+      );
+      setNotes(restoreData);
     }
   };
   console.log(notes, "notes");
@@ -96,7 +115,7 @@ function CardPage() {
             </Stack>
           </CardContent>
           <CardActions className="flex justify-around items-center px-2 pb-2">
-            {buttonsActions.map((btn, idx) => (
+            {buttonsActions(card).map((btn, idx) => (
               <Button
                 variant="outlined"
                 key={idx}
