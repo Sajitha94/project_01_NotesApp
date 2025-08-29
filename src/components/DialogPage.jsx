@@ -12,7 +12,9 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import { useNotes } from "./LocalStorageData";
-
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
 const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
   width: "100%",
   marginTop: "20px",
@@ -150,8 +152,10 @@ function DialogPage() {
                   borderColor: "red",
                   border: "1px solid #d1c4e9",
                   textTransform: "none",
+                  gap: 0.5,
                 }}
               >
+                <CancelIcon sx={{ width: 20, height: 20 }} />
                 Cancel
               </Button>
               <Button
@@ -162,9 +166,15 @@ function DialogPage() {
                   color: "#9575cd",
                   border: "1px solid #d1c4e9",
                   textTransform: "none",
+                  gap: 0.5,
                 }}
               >
-                Save
+                {noteToEdit ? (
+                  <SaveAsIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  <SaveIcon sx={{ width: 20, height: 20 }} />
+                )}
+                {noteToEdit ? "Upadate" : "Save"}
               </Button>
             </DialogActions>
           </form>

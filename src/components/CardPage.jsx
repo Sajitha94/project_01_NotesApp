@@ -8,7 +8,12 @@ import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useNotes } from "./LocalStorageData";
-
+import EditIcon from "@mui/icons-material/Edit";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import UnarchiveIcon from "@mui/icons-material/Unarchive";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 function CardPage() {
   const {
     notes,
@@ -126,7 +131,12 @@ function CardPage() {
                   {card.pinned === true ? "📌" : "📍"}
                 </Box>
                 {/* "" :  */}
-                <Box>➤</Box>
+                <Box
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => handleClickOpen(card.id)}
+                >
+                  ➤
+                </Box>
               </Box>
             </Box>
             <Box className="flex justify-between ">
@@ -161,9 +171,41 @@ function CardPage() {
                   color:
                     btn === "Trash" || btn === "Delete" ? "red" : "#9575cd",
                   borderColor: "#d1c4e9",
+                  gap: 0.5,
                 }}
                 onClick={() => ButtonOnclick(btn, card.id)}
               >
+                {btn === "Edit" ? (
+                  <EditIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  ""
+                )}
+                {btn === "Archive" ? (
+                  <ArchiveIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  ""
+                )}
+                {btn === "UnArchive" ? (
+                  <UnarchiveIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  ""
+                )}
+                {btn === "Trash" ? (
+                  <DeleteIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  ""
+                )}
+                {btn === "Restore" ? (
+                  <RestoreFromTrashIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  ""
+                )}
+                {btn === "Delete" ? (
+                  <DeleteForeverIcon sx={{ width: 20, height: 20 }} />
+                ) : (
+                  ""
+                )}
+
                 {btn}
               </Button>
             ))}
