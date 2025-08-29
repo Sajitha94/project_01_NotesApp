@@ -6,7 +6,7 @@ const LocalStorageContext = createContext();
 export function LocalStorageProvider({ children }) {
   const [notes, setNotes] = useState([]);
   const [tagsData, setTagsData] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [editNoteId, setEditNoteId] = useState(null);
   const [activeTag, setActiveTag] = useState("Notes");
@@ -70,6 +70,8 @@ export function LocalStorageProvider({ children }) {
         setActiveTag,
         tagsData,
         setTagsData,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {children}

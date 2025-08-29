@@ -49,7 +49,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchPage() {
-  const { handleClickOpen, activeTag, setActiveTag } = useNotes();
+  const {
+    handleClickOpen,
+    activeTag,
+    setActiveTag,
+    searchTerm,
+    setSearchTerm,
+  } = useNotes();
   const buttons = ["Notes", "Archived", "Trash"];
 
   return (
@@ -81,6 +87,7 @@ function SearchPage() {
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
             sx={{ color: "#7e57c2" }}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </Search>
         <Button

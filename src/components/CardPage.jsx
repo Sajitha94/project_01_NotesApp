@@ -10,8 +10,15 @@ import Stack from "@mui/material/Stack";
 import { useNotes } from "./LocalStorageData";
 
 function CardPage() {
-  const { notes, setNotes, handleClickOpen, handleClose, open, activeTag } =
-    useNotes();
+  const {
+    notes,
+    setNotes,
+    handleClickOpen,
+    handleClose,
+    open,
+    activeTag,
+    searchTerm,
+  } = useNotes();
 
   const buttonsActions = (card) => {
     let buttons = [];
@@ -24,9 +31,7 @@ function CardPage() {
     }
     return buttons;
   };
-  // pinned,
-  //         archived,
-  //         trashed,
+
   let filteredNotes = [];
   if (activeTag === "Archived") {
     filteredNotes = notes.filter(
@@ -37,6 +42,16 @@ function CardPage() {
   } else {
     filteredNotes = notes.filter(
       (item) => item.archived === false && item.trashed === false
+    );
+  }
+  if (searchTerm.trim() !== "") {
+    filteredNotes = filteredNotes.filter(
+      (item) =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.tags.some((tag) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
   }
 
