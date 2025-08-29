@@ -70,7 +70,11 @@ function SearchPage() {
               backgroundColor: activeTag === btn ? "#7e57c2" : "#ede7f6",
               textTransform: "none",
               color: activeTag === btn ? "#fff" : "#7e57c2",
-              ":hover": { backgroundColor: "#d1c4e9" },
+              ":hover": {
+                backgroundColor: activeTag === btn
+                  ? "#7e57c2  !important"
+                  : "#d1c4e9  !important", // same as current
+              },
             }}
           >
             {btn}
