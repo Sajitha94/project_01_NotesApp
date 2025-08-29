@@ -43,7 +43,11 @@ function DialogPage() {
     tagsData,
     setTagsData,
   } = useNotes();
-
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+    tags: "",
+  });
   const noteToEdit = notes.find((notes) => notes.id === editNoteId);
 
   const handleSubmit = (event) => {
@@ -55,6 +59,24 @@ function DialogPage() {
     const tags = tagInput.split(",").map((item) => item.trim());
     const dateTimeString = new Date();
     const [date, time] = dateTimeString.toLocaleString().split(",");
+
+    let hasError = false;
+    const newErrors = { title: "", description: "", tags: "" };
+    if (!title) {
+      newErrors.title = "Title is required";
+      hasError = true;
+    }
+    if (!description) {
+      newErrors.description = "Description is required";
+      hasError = true;
+    }
+
+    if (!tagInput) {
+      newErrors.tags = "At least one tag is required";
+      hasError = true;
+    }
+    setErrors(newErrors);
+    if (hasError) return;
 
     if (noteToEdit) {
       const UpdateNote = notes.map((item) =>
@@ -87,6 +109,10 @@ function DialogPage() {
     console.log(allTags, "allTags");
     handleClose();
   };
+  const cancelClick = () => {
+    setErrors({ title: "", description: "", tags: "" });
+    handleClose();
+  };
 
   return (
     <Box>
@@ -100,6 +126,8 @@ function DialogPage() {
               variant="outlined"
               fullWidth
               defaultValue={noteToEdit ? noteToEdit.title : ""}
+              error={!!errors.title}
+              helperText={errors.title}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {
@@ -122,7 +150,24 @@ function DialogPage() {
               aria-label="description"
               placeholder="Write your note here..."
               defaultValue={noteToEdit ? noteToEdit.description : ""}
+              style={{
+                border: errors.description
+                  ? "1px solid #d32f2f"
+                  : "2px solid #ccc",
+                margin: errors.description ? "5px 0 0 0" : "20px 0 20px 0",
+              }}
             />
+            {errors.description && (
+              <span
+                style={{
+                  color: "#d32f2f",
+                  fontSize: "12px",
+                  paddingLeft: "15px",
+                }}
+              >
+                {errors.description}
+              </span>
+            )}
 
             <TextField
               name="tags"
@@ -130,6 +175,8 @@ function DialogPage() {
               variant="outlined"
               fullWidth
               defaultValue={noteToEdit ? noteToEdit.tags.join(", ") : ""}
+              error={!!errors.tags}
+              helperText={errors.tags}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {
@@ -146,7 +193,7 @@ function DialogPage() {
             />
             <DialogActions>
               <Button
-                onClick={handleClose}
+                onClick={cancelClick}
                 sx={{
                   color: "red",
                   borderColor: "red",
