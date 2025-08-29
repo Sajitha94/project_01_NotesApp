@@ -10,22 +10,38 @@ import Stack from "@mui/material/Stack";
 import { useNotes } from "./LocalStorageData";
 
 function CardPage() {
-  const { notes, setNotes, handleClickOpen, handleClose, open } = useNotes();
+  const { notes, setNotes, handleClickOpen, handleClose, open, activeTag } =
+    useNotes();
+
+  const buttonsActions = ["Edit", "Archive", "Trash"];
+
   // pinned,
   //         archived,
   //         trashed,
-  const buttonsActions = ["Edit", "Archive", "Trash"];
+  let filteredNotes = [];
+  if (activeTag === "Archived") {
+    filteredNotes = notes.filter(
+      (item) => item.archived === true && item.trashed === false
+    );
+  } else if (activeTag === "Trash") {
+    filteredNotes = notes.filter((item) => item.trashed === true);
+  } else {
+    filteredNotes = notes.filter(
+      (item) => item.archived === false && item.trashed === false
+    );
+  }
+
   const ButtonOnclick = (btn, id) => {
     if (btn === "Edit") {
       handleClickOpen(id);
     } else if (btn === "Archive") {
       const archiveData = notes.map((item) =>
-        item.id === id ? { ...item, archived: true } : item
+        item.id === id ? { ...item, archived: true, trashed: false } : item
       );
       setNotes(archiveData);
     } else if (btn === "Trash") {
       const trashData = notes.map((items) =>
-        items.id === id ? { ...items, trashed: true } : items
+        items.id === id ? { ...items, trashed: true, archived: false } : items
       );
       setNotes(trashData);
     }
@@ -33,7 +49,7 @@ function CardPage() {
   console.log(notes, "notes");
   return (
     <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
-      {notes.map((card, idx) => (
+      {filteredNotes.map((card, idx) => (
         <Card
           sx={{ maxWidth: { xs: 300, lg: 275 }, borderRadius: 2, boxShadow: 3 }}
           key={idx}

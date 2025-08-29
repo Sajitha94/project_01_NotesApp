@@ -49,8 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchPage() {
-  const [activeTag, setActiveTag,] = useState("Notes");
-  const { handleClickOpen } = useNotes();
+  const { handleClickOpen, activeTag, setActiveTag } = useNotes();
   const buttons = ["Notes", "Archived", "Trash"];
 
   return (
@@ -60,6 +59,7 @@ function SearchPage() {
           <Button
             key={btn}
             variant="contained"
+            onClick={() => setActiveTag(btn)}
             sx={{
               backgroundColor: activeTag === btn ? "#7e57c2" : "#ede7f6",
               textTransform: "none",

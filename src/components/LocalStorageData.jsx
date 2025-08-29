@@ -7,7 +7,7 @@ export function LocalStorageProvider({ children }) {
   const [notes, setNotes] = useState([]);
   const [open, setOpen] = useState(false);
   const [editNoteId, setEditNoteId] = useState(null);
-
+  const [activeTag, setActiveTag] = useState("Notes");
   const handleClickOpen = (id = null) => {
     setEditNoteId(id);
     setOpen(true);
@@ -57,6 +57,8 @@ export function LocalStorageProvider({ children }) {
         open,
         setEditNoteId,
         editNoteId,
+        activeTag,
+        setActiveTag,
       }}
     >
       {children}
