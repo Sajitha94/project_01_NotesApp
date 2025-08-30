@@ -103,13 +103,19 @@ function CardPage() {
   };
   console.log(notes, "notes");
   return (
-    <Box className="flex contain-content justify-center items-center mx-5 gap-5  flex-wrap ">
+    <Box className=" grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mx-5 gap-5  justify-items-center ">
       {filteredNotes.map((card, idx) => (
         <Card
-          sx={{ maxWidth: { xs: 300, lg: 275 }, borderRadius: 2, boxShadow: 3 }}
+          sx={{
+            width: "300px",
+            height: "280px",
+            borderRadius: 2,
+            boxShadow: 3,
+          }}
+          className="flex justify-between flex-col"
           key={idx}
         >
-          <CardContent className="flex justify-between items-center flex-col">
+          <CardContent className="flex justify-between flex-col">
             <Box className="flex justify-between   gap-12 mb-1">
               <Typography
                 gutterBottom
@@ -139,17 +145,18 @@ function CardPage() {
                 </Box>
               </Box>
             </Box>
-            <Box className="flex justify-between ">
+            <Box className="flex justify-between  ">
               <Typography
                 sx={{
                   color: "text.secondary",
                   mb: 1.5,
                   wordWrap: "break-word",
+                  width: "200px",
                 }}
               >
                 {card.description}
               </Typography>
-              <Box className="flex  flex-col justify-start items-center gap-1 text-sm text-gray-500">
+              <Box className="flex  flex-col justify-start items-center gap-1 text-sm text-gray-500 ">
                 <Box>{card.date},</Box>
                 <Box>{card.time}</Box>
               </Box>
