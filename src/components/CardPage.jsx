@@ -14,6 +14,7 @@ import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Tooltip from "@mui/material/Tooltip";
 function CardPage() {
   const {
     notes,
@@ -137,20 +138,24 @@ function CardPage() {
                 {card.title}
               </Typography>
               <Box className="flex justify-end items-center gap-2 ">
-                <Box
-                  onClick={() => pinCard(card.id)}
-                  sx={{ cursor: "pointer" }}
-                >
-                  {" "}
-                  {card.pinned === true ? "📌" : "📍"}
-                </Box>
+                <Tooltip title={card.pinned ? "Unpin" : "Pin"}>
+                  <Box
+                    onClick={() => pinCard(card.id)}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    {" "}
+                    {card.pinned === true ? "📌" : "📍"}
+                  </Box>
+                </Tooltip>
                 {/* "" :  */}
-                <Box
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => handleClickOpen(card.id)}
-                >
-                  ➤
-                </Box>
+                <Tooltip title={"Edit"}>
+                  <Box
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => handleClickOpen(card.id)}
+                  >
+                    ➤
+                  </Box>
+                </Tooltip>
               </Box>
             </Box>
             <Box className="flex justify-between  ">
