@@ -55,8 +55,12 @@ function DialogPage() {
     const formData = new FormData(event.currentTarget);
     const title = formData.get("title");
     const description = formData.get("description");
-    const tagInput = formData.get("tags");
-    const tags = tagInput.split(",").map((item) => item.trim());
+    const tagInput = formData.get("tags") || "";
+    const tags = tagInput
+      .split(",")
+      .map((item) => item.trim())
+      .filter((item) => item !== "");
+
     const dateTimeString = new Date();
     const [date, time] = dateTimeString.toLocaleString().split(",");
 
@@ -71,7 +75,7 @@ function DialogPage() {
       hasError = true;
     }
 
-    if (!tagInput) {
+    if (tags.length === 0) {
       newErrors.tags = "At least one tag is required";
       hasError = true;
     }
@@ -135,6 +139,7 @@ function DialogPage() {
               defaultValue={noteToEdit ? noteToEdit.title : ""}
               error={!!errors.title}
               helperText={errors.title}
+              onChange={(e) => setErrors((prev) => ({ ...prev, title: "" }))}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {
@@ -157,6 +162,9 @@ function DialogPage() {
               aria-label="description"
               placeholder="Write your note here..."
               defaultValue={noteToEdit ? noteToEdit.description : ""}
+              onChange={() =>
+                setErrors((prev) => ({ ...prev, description: "" }))
+              }
               style={{
                 border: errors.description
                   ? "1px solid #d32f2f"
@@ -182,6 +190,7 @@ function DialogPage() {
               variant="outlined"
               fullWidth
               defaultValue={noteToEdit ? noteToEdit.tags.join(", ") : ""}
+              onChange={(e) => setErrors((prev) => ({ ...prev, tags: "" }))}
               error={!!errors.tags}
               helperText={errors.tags}
               sx={{
