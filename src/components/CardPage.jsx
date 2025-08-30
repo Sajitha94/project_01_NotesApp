@@ -129,7 +129,15 @@ function CardPage() {
           className="flex justify-between flex-col"
           key={idx}
         >
-          <CardContent className="flex justify-between flex-col">
+          <CardContent
+            className="flex justify-between flex-col"
+            sx={{
+              flexGrow: 1,
+              overflowY: "auto",
+              pr: 1,
+              scrollbarWidth: "none",
+            }}
+          >
             <Box className="flex justify-between   items-start">
               <Typography
                 gutterBottom
