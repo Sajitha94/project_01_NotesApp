@@ -31,33 +31,43 @@ function TagsPage() {
       >
         Tags
       </Typography>
-      <Stack direction="row" spacing={1} sx={{ overflowX: "auto", py: 2 }}>
-        {chipArr.map((chip) => {
-          const isActive =
-            (chip === "All" && searchTerm === "") ||
-            chip.toLowerCase() === searchTerm.toLowerCase();
+      <Box sx={{ width: "100%", minWidth: 0 }} className="overflow-x-auto">
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            overflowX: "auto",
+            py: 2,
+            scrollbarWidth: "none",
+          }}
+        >
+          {chipArr.map((chip) => {
+            const isActive =
+              (chip === "All" && searchTerm === "") ||
+              chip.toLowerCase() === searchTerm.toLowerCase();
 
-          return (
-            <Chip
-              label={chip === "All" ? `${chip}` : `#${chip}`}
-              key={chip}
-              variant="outlined"
-              onClick={() => handleClick(chip)}
-              sx={{
-                backgroundColor: isActive ? "#946bdc" : "#ede7f6",
-                color: isActive ? "white" : "#5e35b1",
-                padding: "5px 5px",
-                cursor: "pointer",
-                ":hover": {
-                  backgroundColor: isActive
-                    ? "#7e57c2  !important"
-                    : "#d1c4e9  !important",
-                },
-              }}
-            />
-          );
-        })}
-      </Stack>
+            return (
+              <Chip
+                label={chip === "All" ? `${chip}` : `#${chip}`}
+                key={chip}
+                variant="outlined"
+                onClick={() => handleClick(chip)}
+                sx={{
+                  backgroundColor: isActive ? "#946bdc" : "#ede7f6",
+                  color: isActive ? "white" : "#5e35b1",
+                  padding: "5px 5px",
+                  cursor: "pointer",
+                  ":hover": {
+                    backgroundColor: isActive
+                      ? "#7e57c2  !important"
+                      : "#d1c4e9  !important",
+                  },
+                }}
+              />
+            );
+          })}
+        </Stack>
+      </Box>
     </Box>
   );
 }
