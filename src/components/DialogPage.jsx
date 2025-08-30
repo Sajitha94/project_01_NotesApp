@@ -42,6 +42,8 @@ function DialogPage() {
     editNoteId,
     tagsData,
     setTagsData,
+    viewOnly,
+    setViewOnly,
   } = useNotes();
   const [errors, setErrors] = useState({
     title: "",
@@ -52,6 +54,7 @@ function DialogPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (viewOnly) return;
     const formData = new FormData(event.currentTarget);
     const title = formData.get("title");
     const description = formData.get("description");
@@ -128,7 +131,9 @@ function DialogPage() {
         }}
         disableEscapeKeyDown
       >
-        <DialogTitle>{noteToEdit ? "Edit Note" : "Add New"}</DialogTitle>
+        <DialogTitle>
+          {viewOnly ? "View Note" : noteToEdit ? "Edit Note" : "Add New"}
+        </DialogTitle>
         <DialogContent dividers>
           <form id="add-form" onSubmit={handleSubmit}>
             <TextField
@@ -140,6 +145,7 @@ function DialogPage() {
               error={!!errors.title}
               helperText={errors.title}
               onChange={(e) => setErrors((prev) => ({ ...prev, title: "" }))}
+              InputProps={{ readOnly: viewOnly }}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {
@@ -165,6 +171,7 @@ function DialogPage() {
               onChange={() =>
                 setErrors((prev) => ({ ...prev, description: "" }))
               }
+              readOnly={viewOnly}
               style={{
                 border: errors.description
                   ? "1px solid #d32f2f"
@@ -193,6 +200,7 @@ function DialogPage() {
               onChange={(e) => setErrors((prev) => ({ ...prev, tags: "" }))}
               error={!!errors.tags}
               helperText={errors.tags}
+              InputProps={{ readOnly: viewOnly }}
               sx={{
                 borderRadius: "5px",
                 "& .MuiOutlinedInput-root": {
@@ -207,6 +215,7 @@ function DialogPage() {
                 },
               }}
             />
+
             <DialogActions>
               <Button
                 onClick={cancelClick}
@@ -221,24 +230,26 @@ function DialogPage() {
                 <CancelIcon sx={{ width: 20, height: 20 }} />
                 Cancel
               </Button>
-              <Button
-                type="submit"
-                form="add-form"
-                sx={{
-                  color: "red",
-                  color: "#9575cd",
-                  border: "1px solid #d1c4e9",
-                  textTransform: "none",
-                  gap: 0.5,
-                }}
-              >
-                {noteToEdit ? (
-                  <SaveAsIcon sx={{ width: 20, height: 20 }} />
-                ) : (
-                  <SaveIcon sx={{ width: 20, height: 20 }} />
-                )}
-                {noteToEdit ? "Upadate" : "Save"}
-              </Button>
+              {!viewOnly && (
+                <Button
+                  type="submit"
+                  form="add-form"
+                  sx={{
+                    color: "red",
+                    color: "#9575cd",
+                    border: "1px solid #d1c4e9",
+                    textTransform: "none",
+                    gap: 0.5,
+                  }}
+                >
+                  {noteToEdit ? (
+                    <SaveAsIcon sx={{ width: 20, height: 20 }} />
+                  ) : (
+                    <SaveIcon sx={{ width: 20, height: 20 }} />
+                  )}
+                  {noteToEdit ? "Upadate" : "Save"}
+                </Button>
+              )}
             </DialogActions>
           </form>
         </DialogContent>

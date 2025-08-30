@@ -111,6 +111,11 @@ function CardPage() {
     setNotes(pinData);
   };
   console.log(notes, "notes");
+
+  const viewCard = (id) => {
+    handleClickOpen(id, true);
+  };
+
   return (
     <Box className=" grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mx-5 gap-5  justify-items-center ">
       {filteredNotes.map((card, idx) => (
@@ -150,10 +155,10 @@ function CardPage() {
                   </Box>
                 </Tooltip>
                 {/* "" :  */}
-                <Tooltip title={"Edit"}>
+                <Tooltip title={"View"}>
                   <Box
                     sx={{ cursor: "pointer" }}
-                    onClick={() => handleClickOpen(card.id)}
+                    onClick={() => viewCard(card.id)}
                   >
                     ➤
                   </Box>

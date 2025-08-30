@@ -10,9 +10,12 @@ export function LocalStorageProvider({ children }) {
   const [open, setOpen] = useState(false);
   const [editNoteId, setEditNoteId] = useState(null);
   const [activeTag, setActiveTag] = useState("Notes");
-  const handleClickOpen = (id = null) => {
+  const [viewOnly, setViewOnly] = useState(false);
+
+  const handleClickOpen = (id = null, viewOnly = false) => {
     setEditNoteId(id);
     setOpen(true);
+    setViewOnly(viewOnly);
   };
   const handleClose = () => {
     setEditNoteId(null);
@@ -72,6 +75,8 @@ export function LocalStorageProvider({ children }) {
         setTagsData,
         searchTerm,
         setSearchTerm,
+        viewOnly,
+        setViewOnly,
       }}
     >
       {children}

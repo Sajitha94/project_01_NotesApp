@@ -55,6 +55,8 @@ function SearchPage() {
     setActiveTag,
     searchTerm,
     setSearchTerm,
+    viewOnly,
+    setViewOnly,
   } = useNotes();
   const buttons = ["Notes", "Archived", "Trash"];
 
@@ -110,7 +112,7 @@ function SearchPage() {
         </Button>
       </Box>
 
-      <DialogPage />
+      <DialogPage viewOnly={viewOnly} />
     </Box>
   );
 }
