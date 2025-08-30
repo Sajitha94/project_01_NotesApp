@@ -133,9 +133,10 @@ function CardPage() {
             className="flex justify-between flex-col"
             sx={{
               flexGrow: 1,
+              maxHeight: 210, 
               overflowY: "auto",
               pr: 1,
-              scrollbarWidth: "none",
+              scrollbarWidth: "none", 
             }}
           >
             <Box className="flex justify-between   items-start">
