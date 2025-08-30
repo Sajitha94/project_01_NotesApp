@@ -116,7 +116,14 @@ function DialogPage() {
 
   return (
     <Box>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={(event, reason) => {
+          if (reason === "backdropClick") return;
+          handleClose();
+        }}
+        disableEscapeKeyDown
+      >
         <DialogTitle>{noteToEdit ? "Edit Note" : "Add New"}</DialogTitle>
         <DialogContent dividers>
           <form id="add-form" onSubmit={handleSubmit}>
