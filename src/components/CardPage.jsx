@@ -133,10 +133,10 @@ function CardPage() {
             className="flex justify-between flex-col"
             sx={{
               flexGrow: 1,
-              maxHeight: 210, 
+              maxHeight: 210,
               overflowY: "auto",
               pr: 1,
-              scrollbarWidth: "none", 
+              scrollbarWidth: "none",
             }}
           >
             <Box className="flex justify-between   items-start">
@@ -190,25 +190,25 @@ function CardPage() {
                 <Box>{card.time}</Box>
               </Box>
             </Box>
-            <Box
-              sx={{ width: "100%", minWidth: 0 }}
-              className="overflow-x-auto"
-            >
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{
-                  overflowX: "auto",
-                  py: 2,
-                  scrollbarWidth: "none",
-                }}
-              >
-                {card.tags.map((chip, idx) => (
-                  <Chip label={`#${chip}`} key={idx} />
-                ))}
-              </Stack>
-            </Box>
           </CardContent>
+          <Box
+            sx={{ width: "100%", minWidth: 0 }}
+            className="overflow-x-auto mx-2"
+          >
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{
+                overflowX: "auto",
+                py: 2,
+                scrollbarWidth: "none",
+              }}
+            >
+              {card.tags.map((chip, idx) => (
+                <Chip label={`#${chip}`} key={idx} />
+              ))}
+            </Stack>
+          </Box>
           <CardActions className="flex justify-around items-center px-2 pb-2">
             {buttonsActions(card).map((btn, idx) => (
               <Button
