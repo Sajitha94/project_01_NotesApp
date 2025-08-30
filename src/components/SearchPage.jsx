@@ -58,6 +58,11 @@ function SearchPage() {
   } = useNotes();
   const buttons = ["Notes", "Archived", "Trash"];
 
+  const searchClick = (btn) => {
+    setSearchTerm("");
+    setActiveTag(btn);
+  };
+
   return (
     <Box className="flex justify-between items-center md:mx-4  md:flex-row flex-col">
       <Box className="flex justify-end items-center py-4 gap-4 order-2 md:order-1">
@@ -65,15 +70,16 @@ function SearchPage() {
           <Button
             key={btn}
             variant="contained"
-            onClick={() => setActiveTag(btn)}
+            onClick={() => searchClick(btn)}
             sx={{
               backgroundColor: activeTag === btn ? "#7e57c2" : "#ede7f6",
               textTransform: "none",
               color: activeTag === btn ? "#fff" : "#7e57c2",
               ":hover": {
-                backgroundColor: activeTag === btn
-                  ? "#7e57c2  !important"
-                  : "#d1c4e9  !important", // same as current
+                backgroundColor:
+                  activeTag === btn
+                    ? "#7e57c2  !important"
+                    : "#d1c4e9  !important",
               },
             }}
           >
@@ -91,6 +97,7 @@ function SearchPage() {
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
             sx={{ color: "#7e57c2" }}
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </Search>

@@ -169,7 +169,7 @@ function CardPage() {
                 sx={{
                   textTransform: "none",
                   color:
-                    btn === "Trash" || btn === "Delete" ? "red" : "#9575cd",
+                    btn === "Trash" || btn === "Delete" ? "#d32f2f" : "#9575cd",
                   borderColor: "#d1c4e9",
                   gap: 0.5,
                 }}
