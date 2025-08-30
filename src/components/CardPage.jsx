@@ -117,7 +117,7 @@ function CardPage() {
         <Card
           sx={{
             width: "300px",
-            height: "280px",
+            minHeight: "280px",
             borderRadius: 2,
             boxShadow: 3,
           }}
@@ -125,7 +125,7 @@ function CardPage() {
           key={idx}
         >
           <CardContent className="flex justify-between flex-col">
-            <Box className="flex justify-between   gap-12 mb-1">
+            <Box className="flex justify-between   items-start">
               <Typography
                 gutterBottom
                 sx={{
@@ -133,6 +133,8 @@ function CardPage() {
                   fontSize: 16,
                   fontWeight: 600,
                   marginBottom: 0,
+                  overflowWrap: "break-word",
+                  maxWidth: "220px",
                 }}
               >
                 {card.title}
@@ -174,12 +176,24 @@ function CardPage() {
                 <Box>{card.time}</Box>
               </Box>
             </Box>
-
-            <Stack direction="row" spacing={1}>
-              {card.tags.map((chip, idx) => (
-                <Chip label={`#${chip}`} key={idx} />
-              ))}
-            </Stack>
+            <Box
+              sx={{ width: "100%", minWidth: 0 }}
+              className="overflow-x-auto"
+            >
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{
+                  overflowX: "auto",
+                  py: 2,
+                  scrollbarWidth: "none",
+                }}
+              >
+                {card.tags.map((chip, idx) => (
+                  <Chip label={`#${chip}`} key={idx} />
+                ))}
+              </Stack>
+            </Box>
           </CardContent>
           <CardActions className="flex justify-around items-center px-2 pb-2">
             {buttonsActions(card).map((btn, idx) => (
