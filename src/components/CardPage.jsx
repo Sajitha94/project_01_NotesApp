@@ -23,6 +23,8 @@ function CardPage() {
     open,
     activeTag,
     searchTerm,
+    tagsData,
+    setTagsData,
   } = useNotes();
 
   const buttonsActions = (card) => {
@@ -92,6 +94,12 @@ function CardPage() {
       setNotes(restoreData);
     } else if (btn === "Delete") {
       const deleteData = notes.filter((item) => item.id !== id);
+
+      const tagItem = notes.find((itemtag) => itemtag.id == id);
+
+      const tagDelete = tagsData.filter((tag) => !tagItem.tags.includes(tag));
+      setTagsData(tagDelete);
+
       setNotes(deleteData);
     }
   };
